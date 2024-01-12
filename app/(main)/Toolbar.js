@@ -28,7 +28,7 @@ export default function Toolbar() {
                 <ToggleGroupItem
                     value="camera"
                     aria-label="Toggle camera"
-                    onclick={() => handleCamera()}>
+                    onClick={() => handleCamera()}>
                     {camera ? (
                         <Video className="w-4 h-4" />
                     ) : (
@@ -38,7 +38,7 @@ export default function Toolbar() {
                 <ToggleGroupItem
                     value="microphone"
                     aria-label="Toggle microphone"
-                    onclick={() => handleMicrophone()}>
+                    onClick={() => handleMicrophone()}>
                     {microphone ? (
                         <Mic className="w-4 h-4" />
                     ) : (
