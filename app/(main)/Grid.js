@@ -10,7 +10,7 @@ export default function Grid() {
         videoHeight: 0,
     })
 
-    const elements = 3
+    const elements = 4
 
     //Total videos width is set to fit the container width
     function resizeByWidth(video_width, columns = 1) {
@@ -92,7 +92,10 @@ export default function Grid() {
                         )
                     }
                 }
-                setVideoSize({ videoWidth: maxVideoWidth, videoHeight: maxVideoHeight })
+                setVideoSize({
+                    videoWidth: maxVideoWidth,
+                    videoHeight: maxVideoHeight,
+                })
             }
         }
     }
@@ -106,20 +109,20 @@ export default function Grid() {
     return (
         <div
             ref={ref}
-            className="relative flex flex-wrap items-center content-center justify-center flex-grow gap-3 py-4 overflow-hidden">
+            className="relative flex flex-wrap items-center content-center justify-center flex-grow my-2 overflow-hidden overflow-x-hidden">
             {Array.from({ length: elements }, (_, i) => (
                 <div
                     key={i}
-                    className="flex-1 rounded-lg bg-neutral-700"
+                    className="flex-1 p-[6px]"
                     style={{
-                        minWidth: `${videoSize.videoWidth * 0.8}px`,
+                        minWidth: `${videoSize.videoWidth * 0.9}px`,
                         width: `${videoSize.videoWidth}px`,
                         maxWidth: `${videoSize.videoWidth}px`,
-                        minHeight: `120px`,
+                        minHeight: `100px`,
                         height: `${videoSize.videoHeight}px`,
-                        maxWidth: `${videoSize.videoWidth}px`,
+                        maxHeight: `${videoSize.videoHeight}px`,
                     }}>
-                    <div className="flex flex-col items-center justify-center h-full mx-auto">
+                    <div className="flex flex-col items-center justify-center h-full mx-auto rounded-lg bg-neutral-700">
                         <div>{i + 1}</div>
                         <div>{`${videoSize.videoWidth}x${videoSize.videoHeight}`}</div>
                     </div>

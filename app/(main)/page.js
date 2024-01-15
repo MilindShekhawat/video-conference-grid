@@ -1,15 +1,16 @@
 "use client"
-import Link from "next/link"
-import SideArea from "./SideArea"
 import Grid from "./Grid"
+import Toolbar from "./Toolbar"
+import SideArea from "./SideArea"
 
+import { ChevronLeft } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
-
-import Toolbar from "./Toolbar"
 
 export default function Home() {
     return (
@@ -18,8 +19,14 @@ export default function Home() {
                 <ResizablePanel
                     defaultSize={75}
                     className="flex flex-col justify-between flex-1 p-2">
-                    <div className="p-3 rounded-lg bg-neutral-700">
-                        <Link href="/">Home</Link>
+                    <div className="relative p-1.5 rounded-lg h-11 bg-neutral-700">
+                        <Button
+                            className="absolute w-8 h-8 right-1"
+                            onClick={() => showChat()}
+                            size="icon"
+                            variant="ghost">
+                            <ChevronLeft className="w-5 h-5" />
+                        </Button>
                     </div>
                     <Grid />
                     <Toolbar />
