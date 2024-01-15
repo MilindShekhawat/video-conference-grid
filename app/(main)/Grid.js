@@ -106,16 +106,18 @@ export default function Grid() {
     return (
         <div
             ref={ref}
-            className="relative flex flex-wrap items-center content-center justify-center flex-grow gap-3 py-4 overflow-hidden border-2 border-dashed border-stone-500">
+            className="relative flex flex-wrap items-center content-center justify-center flex-grow gap-3 py-4 overflow-hidden">
             {Array.from({ length: elements }, (_, i) => (
                 <div
                     key={i}
-                    className="border-2 border-dashed rounded-lg aspect-video bg-stone-700"
+                    className="flex-1 rounded-lg bg-neutral-700"
                     style={{
-                        minWidth: "120px",
-                        minHeight: "120px",
-                        width: `${videoSize.videoWidth - 12}px`,
-                        height: `${videoSize.videoHeight - 12}px`,
+                        minWidth: `${videoSize.videoWidth * 0.8}px`,
+                        width: `${videoSize.videoWidth}px`,
+                        maxWidth: `${videoSize.videoWidth}px`,
+                        minHeight: `120px`,
+                        height: `${videoSize.videoHeight}px`,
+                        maxWidth: `${videoSize.videoWidth}px`,
                     }}>
                     <div className="flex flex-col items-center justify-center h-full mx-auto">
                         <div>{i + 1}</div>

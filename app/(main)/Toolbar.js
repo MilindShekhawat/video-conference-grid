@@ -19,7 +19,7 @@ export default function Toolbar() {
     }
 
     return (
-        <div className="flex justify-center p-3 rounded-lg bg-stone-700">
+        <div className="flex justify-center p-3 rounded-lg bg-neutral-700">
             <ToggleGroup
                 size={"lg"}
                 type="multiple"
