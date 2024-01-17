@@ -10,21 +10,27 @@ export default function Grid() {
         videoHeight: 0,
     })
 
-    const elements = 4
+    const elements = 3
 
     //Total videos width is set to fit the container width
     function resizeByWidth(video_width, columns = 1) {
         video_width = width / columns
-        const video_height = Math.floor(video_width * 0.56)
-        const _size = { videoWidth: video_width, videoHeight: video_height }
+        const video_height = video_width * 0.56
+        const _size = {
+            videoWidth: Math.floor(video_width),
+            videoHeight: Math.floor(video_height),
+        }
         // console.log("resizeByWidth", _size)
         return _size
     }
     //Total videos height is set to fit the container height
     function resizeByHeight(video_height, rows = 1) {
         video_height = height / rows
-        const video_width = Math.floor(video_height * 1.78)
-        const _size = { videoWidth: video_width, videoHeight: video_height }
+        const video_width = video_height * 1.78
+        const _size = {
+            videoWidth: Math.floor(video_width),
+            videoHeight: Math.floor(video_height),
+        }
         // console.log("resizeByHeight", _size)
         return _size
     }
@@ -45,30 +51,11 @@ export default function Grid() {
                 width <= resizedByWidth.videoWidth * columns ||
                 height <= resizedByHeight.videoHeight * rows
             ) {
+                //STORE- Resize videos to fit the container by width and height
                 resizedByWidth = resizeByWidth(width, columns)
                 resizedByHeight = resizeByHeight(height, rows)
 
-                // //--------------------------------------------------------------------
-                // console.log("-------------------------------------------------------")
-                // console.log("Container:", width, height)
-                // console.log("%cResizedByWidth:", "background: yellow", resizedByWidth)
-                // console.log("%cResizedByHeight:", "background: cyan", resizedByHeight)
-                // console.log("Columns:", columns, "Rows:", rows)
-                // console.log(
-                //     "%cTotal size by Width:",
-                //     "background: yellow",
-                //     resizedByWidth.videoWidth * columns,
-                //     resizedByWidth.videoHeight * rows
-                // )
-                // console.log(
-                //     "%cTotal size by Height:",
-                //     "background: cyan",
-                //     resizedByHeight.videoWidth * columns,
-                //     resizedByHeight.videoHeight * rows
-                // )
-                // //--------------------------------------------------------------------
-
-                //if container is bigger than videos resized to fit by height
+                //if container is bigger than videos resized to fit by height, use that size
                 if (width >= resizedByHeight.videoWidth * columns) {
                     maxVideoWidth = resizedByHeight.videoWidth
                     maxVideoHeight = resizedByHeight.videoHeight
@@ -79,8 +66,9 @@ export default function Grid() {
                         maxVideoHeight
                     )
                 }
-                //if container is bigger than videos resized to fit by width
+                //if container is bigger than videos resized to fit by width, compare with previous size
                 if (height >= resizedByWidth.videoHeight * rows) {
+                    //choose the bigger size
                     if (resizedByWidth.videoWidth > maxVideoWidth) {
                         maxVideoWidth = resizedByWidth.videoWidth
                         maxVideoHeight = resizedByWidth.videoHeight
@@ -103,19 +91,19 @@ export default function Grid() {
     useEffect(() => {
         setTimeout(() => {
             calcVideoSize()
-        }, 500)
+        }, 400)
     }, [width, height])
 
     return (
         <div
             ref={ref}
-            className="relative flex flex-wrap items-center content-center justify-center flex-grow my-2 overflow-hidden overflow-x-hidden">
+            className="relative flex flex-wrap content-center justify-center flex-grow my-2 overflow-hidden overflow-x-hidden">
             {Array.from({ length: elements }, (_, i) => (
                 <div
                     key={i}
-                    className="flex-1 p-[6px]"
+                    className="flex-1 p-[6px] transition-all duration-300 ease-in-out"
                     style={{
-                        minWidth: `${videoSize.videoWidth * 0.9}px`,
+                        minWidth: `${videoSize.videoWidth * 0.8}px`,
                         width: `${videoSize.videoWidth}px`,
                         maxWidth: `${videoSize.videoWidth}px`,
                         minHeight: `100px`,
@@ -124,7 +112,7 @@ export default function Grid() {
                     }}>
                     <div className="flex flex-col items-center justify-center h-full mx-auto rounded-lg bg-neutral-700">
                         <div>{i + 1}</div>
-                        <div>{`${videoSize.videoWidth}x${videoSize.videoHeight}`}</div>
+                        {/* <div>{`${videoSize.videoWidth}x${videoSize.videoHeight}`}</div> */}
                     </div>
                 </div>
             ))}
