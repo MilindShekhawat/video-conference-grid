@@ -19,7 +19,7 @@ export default function Home() {
                 <ResizablePanel
                     defaultSize={75}
                     className="flex flex-col justify-between flex-1 p-2">
-                    <div className="relative p-1.5 rounded-lg h-11 bg-neutral-700">
+                    <div className="relative p-1.5 rounded-lg min-h-11 bg-neutral-700">
                         <Button
                             className="absolute w-8 h-8 right-1"
                             onClick={() => showChat()}
