@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { useResizeDetector } from "react-resize-detector"
 
 export default function Grid() {
@@ -10,7 +10,8 @@ export default function Grid() {
         videoHeight: 0,
     })
 
-    const elements = 3
+    const elements = 2
+    const isPinned = 0
 
     //Total videos width is set to fit the container width
     function resizeByWidth(video_width, columns = 1) {
@@ -88,7 +89,7 @@ export default function Grid() {
         }
     }
 
-    useEffect(() => {
+    useMemo(() => {
         setTimeout(() => {
             calcVideoSize()
         }, 400)
@@ -96,29 +97,47 @@ export default function Grid() {
 
     return (
         <div
-            ref={ref}
-            className="relative flex flex-wrap content-center justify-center flex-grow my-2 overflow-hidden overflow-x-hidden">
-            {Array.from({ length: elements }, (_, i) => (
-                <div
-                    key={i}
-                    className="flex-1 p-[6px] transition-all duration-300 ease-in-out"
-                    style={{
-                        minWidth: `${videoSize.videoWidth * 0.8}px`,
-                        width: `${videoSize.videoWidth}px`,
-                        maxWidth: `${videoSize.videoWidth}px`,
-                        minHeight: `100px`,
-                        height: `${videoSize.videoHeight}px`,
-                        maxHeight: `${videoSize.videoHeight}px`,
-                    }}>
-                    <div className="flex flex-col items-center justify-center h-full mx-auto rounded-lg bg-neutral-700">
-                        <div>{i + 1}</div>
-                        {/* <div>{`${videoSize.videoWidth}x${videoSize.videoHeight}`}</div> */}
+            className="flex flex-1 border-dashed border-1"
+            style={{ height: `${height}px`, minHeight: `${height}px` }}>
+            {isPinned ? (
+                <div className="flex flex-wrap items-center flex-1 object-contain border-1 basis-3/5">
+                    <div
+                        className="p-[6px] flex-1 aspect-video"
+                        style={{ maxHeight: `${height}px` }}>
+                        <div className="flex flex-col items-center justify-center h-full mx-auto rounded-lg bg-neutral-700">
+                            <div className="flex flex-col items-center justify-center rounded-full h-1/2 bg-neutral-600 aspect-square"></div>
+                        </div>
                     </div>
                 </div>
-            ))}
-            <div className="absolute bottom-0 right-0">
-                {`${width}x${height}`}
-                {/* <button onClick={() => calcVideoSize()}>Shift</button> */}
+            ) : (
+                ""
+            )}
+
+            <div
+                ref={ref}
+                className="relative flex flex-wrap content-center justify-center flex-1 border-1 basis-0 min-w-40 py-[6px]">
+                {Array.from({ length: elements }, (_, i) => (
+                    <div
+                        key={i}
+                        className="flex-1 p-[6px] transition-all duration-300 ease-in-out"
+                        style={{
+                            minWidth: `${videoSize.videoWidth * 0.85}px`,
+                            width: `${videoSize.videoWidth}px`,
+                            maxWidth: `${videoSize.videoWidth}px`,
+                            height: `${videoSize.videoHeight}px`,
+                            maxHeight: `${videoSize.videoHeight}px`,
+                        }}>
+                        <div className="flex flex-col items-center justify-center h-full mx-auto rounded-lg bg-neutral-700">
+                            <div className="flex flex-col items-center justify-center rounded-full h-1/2 bg-neutral-600 aspect-square">
+                                {i + 1}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+                <div className="absolute bottom-0 right-0">
+                    {`${width}x${height}`}
+                    {/* <button onClick={() => calcVideoSize()}>Shift</button> */}
+                </div>
             </div>
         </div>
     )

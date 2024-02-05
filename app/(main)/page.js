@@ -33,8 +33,8 @@ export default function Home() {
                 </ResizablePanel>
                 <ResizableHandle className="bg-neutral-400" withHandle />
                 <ResizablePanel
-                    defaultSize={25}
-                    className="flex min-w-[15rem] max-w-[30rem]">
+                    defaultSize={0}
+                    className="flex min-w-[0rem] max-w-[30rem]">
                     <SideArea />
                 </ResizablePanel>
             </ResizablePanelGroup>
